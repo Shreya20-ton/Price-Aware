@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Aware - Sign Up</title>
+    
+</head>
+
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #b6dff3;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: transparent;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form button {
+    padding: 10px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.form-message {
+    margin-top: 15px;
+    color: #555;
+}
+</style>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <form id="signup-form" class="form" onsubmit="return handleSignUp(event)">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+                <p id="signup-message" class="form-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

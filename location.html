@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagpur Fare Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: linear-gradient(to bottom right, #0078d4, #00b5e2);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: #00b5e2;
+        }
+
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ff5a4d;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #result p {
+            margin-bottom: 10px;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #loading img {
+            width: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nagpur Fare Calculator</h1>
+        
+        <label for="startLocation">Start Location:</label>
+        <select id="startLocation">
+            <option value="sitabuldi">Sitabuldi</option>
+            <option value="medicalSquare">Medical Square</option>
+            <option value="sadar">Sadar</option>
+            <option value="pratapNagar">Pratap Nagar</option>
+            <option value="civilLines">Civil Lines</option>
+            <option value="manewada">Manewada</option>
+            <option value="ajniSquare">Ajni Square</option>
+            <option value="jaripatka">Jaripatka</option>
+            <option value="dharampeth">Dharampeth</option>
+            <option value="koradi">Koradi</option>
+            <option value="wardhamanNagar">Wardhaman Nagar</option>
+            <option value="mihan">MIHAN</option>
+            <option value="kampteeRoad">Kamptee Road</option>
+        </select>
+
+        <label for="endLocation">End Location:</label>
+        <select id="endLocation">
+            <option value="sitabuldi">Sitabuldi</option>
+            <option value="medicalSquare">Medical Square</option>
+            <option value="sadar">Sadar</option>
+            <option value="pratapNagar">Pratap Nagar</option>
+            <option value="civilLines">Civil Lines</option>
+            <option value="manewada">Manewada</option>
+            <option value="ajniSquare">Ajni Square</option>
+            <option value="jaripatka">Jaripatka</option>
+            <option value="dharampeth">Dharampeth</option>
+            <option value="koradi">Koradi</option>
+            <option value="wardhamanNagar">Wardhaman Nagar</option>
+            <option value="mihan">MIHAN</option>
+            <option value="kampteeRoad">Kamptee Road</option>
+        </select>
+
+        <button onclick="calculateFare()">Calculate Fare</button>
+
+        <div id="loading">
+            <img src="spin.gif" alt="Loading...">
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Define rates per km for auto and bus
+        const rates = {
+            auto: 12,  // rate per km for auto in Nagpur
+            bus: 6,     // rate per km for bus in Nagpur
+            metro: 7    // rate per km for metro in Nagpur
+        };
+
+        // Predefined distances between popular locations in Nagpur in kilometers
+        const distances = {
+            "sitabuldi-medicalSquare": 3,
+            "sitabuldi-sadar": 2.5,
+            "sitabuldi-pratapNagar": 5,
+            "sitabuldi-civilLines": 3.5,
+            "sitabuldi-manewada": 6,
+            "sitabuldi-ajniSquare": 3.8,
+            "sitabuldi-jaripatka": 5.2,
+            "sitabuldi-dharampeth": 3.3,
+            "sitabuldi-koradi": 11.5,
+            "sitabuldi-wardhamanNagar": 7,
+            "sitabuldi-mihan": 12,
+            "sitabuldi-kampteeRoad": 9.3,
+            "medicalSquare-sadar": 1.5,
+            "medicalSquare-pratapNagar": 4,
+            "medicalSquare-civilLines": 2.5,
+            "medicalSquare-manewada": 5.5,
+            "medicalSquare-ajniSquare": 2.3,
+            "medicalSquare-jaripatka": 6.7,
+            "medicalSquare-dharampeth": 4,
+            "medicalSquare-koradi": 13.5,
+            "medicalSquare-wardhamanNagar": 8.1,
+            "medicalSquare-mihan": 14,
+            "medicalSquare-kampteeRoad": 10.8,
+            "sadar-pratapNagar": 5.5,
+            "sadar-civilLines": 1.8,
+            "sadar-manewada": 6.2,
+            "sadar-ajniSquare": 3.5,
+            "sadar-jaripatka": 4.2,
+            "sadar-dharampeth": 2.8,
+            "sadar-koradi": 12,
+            "sadar-wardhamanNagar": 7.5,
+            "sadar-mihan": 13.5,
+            "sadar-kampteeRoad": 8.5,
+            "pratapNagar-civilLines": 4,
+            "pratapNagar-manewada": 3.5,
+            "pratapNagar-ajniSquare": 2.7,
+            "pratapNagar-jaripatka": 8.2,
+            "pratapNagar-dharampeth": 3.2,
+            "pratapNagar-koradi": 15,
+            "pratapNagar-wardhamanNagar": 9,
+            "pratapNagar-mihan": 11,
+            "pratapNagar-kampteeRoad": 13,
+            "civilLines-manewada": 4.8,
+            "civilLines-ajniSquare": 3.1,
+            "civilLines-jaripatka": 5.5,
+            "civilLines-dharampeth": 1.7,
+            "civilLines-koradi": 12.7,
+            "civilLines-wardhamanNagar": 6.3,
+            "civilLines-mihan": 10,
+            "civilLines-kampteeRoad": 9.1
+        };
+
+        function calculateFare() {
+            const startLocation = document.getElementById("startLocation").value;
+            const endLocation = document.getElementById("endLocation").value;
+            const resultDiv = document.getElementById("result");
+            const loadingDiv = document.getElementById("loading");
+
+            // Show loading spinner
+            loadingDiv.style.display = "block";
+            resultDiv.style.display = "none";
+
+            if (startLocation === endLocation) {
+                resultDiv.innerHTML = "Start and end locations cannot be the same.";
+                loadingDiv.style.display = "none";
+                resultDiv.style.display = "block";
+                return;
+            }
+
+            // Generate key for the distance lookup
+            const routeKey = startLocation + "-" + endLocation;
+            const reverseRouteKey = endLocation + "-" + startLocation;
+
+            // Get the distance for the route (consider both directions)
+            const distance = distances[routeKey] || distances[reverseRouteKey];
+            if (!distance) {
+                resultDiv.innerHTML = "No route found between selected locations.";
+                loadingDiv.style.display = "none";
+                resultDiv.style.display = "block";
+                return;
+            }
+
+            // Simulate delay for loading animation
+            setTimeout(() => {
+                // Calculate fares based on the mode of transport
+                const autoFare = distance * rates.auto;
+                const busFare = distance * rates.bus;
+                const metroFare = distance * rates.metro;
+
+                resultDiv.innerHTML = `
+                    <p>Distance from ${startLocation.replace(/([A-Z])/g, ' $1').trim()} to ${endLocation.replace(/([A-Z])/g, ' $1').trim()} is ${distance} km.</p>
+                    <p>Estimated fare by Auto: ₹${autoFare.toFixed(2)}</p>
+                    <p>Estimated fare by Bus: ₹${busFare.toFixed(2)}</p>
+                    <p>Estimated fare by Metro: ₹${metroFare.toFixed(2)}</p>
+                `;
+                loadingDiv.style.display = "none";
+                resultDiv.style.display = "block";
+            }, 1500);  // Simulate 1.5s delay for loading
+        }
+    </script>
+</body>
+</html>

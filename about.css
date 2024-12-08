@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+.header {
+    background-color: #005f73;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h1 {
+    font-size: 28px;
+    color: #fff;
+}
+
+.header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.header nav a:hover, .header nav a.active {
+    color: #ffcc00;
+}
+
+.hero-section {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.hero-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.hero-section p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.vision-mission {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 40px 20px;
+    gap: 20px;
+    background-color: #f1f1f1;
+}
+
+.vision, .mission {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.vision:hover, .mission:hover {
+    transform: translateY(-5px);
+}
+
+.vision h3, .mission h3 {
+    font-size: 24px;
+    color: #005f73;
+    margin-bottom: 15px;
+}
+
+.vision p, .mission p {
+    font-size: 16px;
+    color: #666;
+}
+
+.how-we-help {
+    padding: 30px 20px;
+    background-color: #005f73;
+    color: #fff;
+    text-align: center;
+}
+
+.how-we-help h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.how-we-help ul {
+    list-style: none;
+    padding: 0;
+}
+
+.how-we-help ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #ffffff;
+}
+
+.how-we-help ul li::before {
+    content: '✔️';
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 40px;
+}

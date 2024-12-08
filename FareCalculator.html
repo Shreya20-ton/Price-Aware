@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fare Calculator</title>
+    <link rel="stylesheet" href="fcstyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fare Calculator</h1>
+        
+        <!-- Distance Input -->
+        <label for="distance">Distance (in km):</label>
+        <input type="number" id="distance" placeholder="Enter distance" required>
+        
+        <!-- Transport Select -->
+        <label for="transport">Mode of Transport:</label>
+        <select id="transport">
+            <option value="auto">Auto</option>
+            <option value="bus">Bus</option>
+            <option value="metro">Metro</option>
+        </select>
+        
+        <!-- Calculate Fare Button -->
+        <button onclick="calculateFare()">Calculate Fare</button>
+        
+        <!-- Loading GIF -->
+        <div id="loading" class="loading">
+            <img src="spin.gif" alt="Loading..." />
+        </div>
+        
+        <!-- Fare Result -->
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        function calculateFare() {
+    const distance = document.getElementById('distance').value;
+    const transport = document.getElementById('transport').value;
+    let fare;
+    
+    // Show loading animation
+    document.getElementById('loading').style.display = "block";
+    document.getElementById('result').style.display = "block";
+    
+    // Simulating calculation delay
+    setTimeout(() => {
+        if (distance <= 0) {
+            document.getElementById('result').innerText = "Please enter a valid distance.";
+            document.getElementById('loading').style.display = "none";
+            document.getElementById('result').style.display = "block";
+            return;
+        }
+        
+        if (transport === 'auto') {
+            fare = distance * 5;
+        } else if (transport === 'bus') {
+            fare = distance * 10;
+        } else if (transport === 'metro') {
+            fare = distance * 7;
+        }
+
+        // Display result after calculation
+        document.getElementById('result').innerText = `Fare: Rs ${fare}`;
+        document.getElementById('result').classList.add('result-highlight'); // Add this line
+        document.getElementById('loading').style.display = "none";
+        }, 2000);
+
+        // Show the result with a fade-in effect and increased font size
+        document.getElementById('result').classList.add('show');
+        document.getElementById('result').style.display = "block";
+      // Adjust the timeout for the loading animation effect
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: linear-gradient(to bottom right, #62a1e5, #89d0f0);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 2.5em;
+    text-align: center;
+    width: 350px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 1.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.7em;
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+}
+
+input:focus, select:focus {
+    border-color: #62a1e5;
+    outline: none;
+}
+
+button {
+    padding: 0.7em 1.5em;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff5a4d;
+    transform: scale(1.05);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin-bottom: 2em;
+}
+
+/* Loading Animation Styling */
+.loading {
+    display: none;  /* Hidden by default */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.loading img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Result Styling - Initial State */
+.result {
+    font-size: 1.4em;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 1.5em;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, font-size 0.5s ease-in-out;
+}
+
+/* Show Class - Larger Font for Result */
+.result.show {
+    opacity: 1;
+    font-size: 5em; /* Increased font size */
+}
+.result-highlight {
+    font-size: 24px; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    color: #ff0000; /* Change text color to red */
+    margin-top: 20px; /* Add some space above */
+}
+
+/* Additional Styles for Improved UX */
+input, select, button {
+    border-radius: 8px;
+}
+
+.container {
+    max-width: 400px;
+}
+
